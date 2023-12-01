@@ -2,15 +2,15 @@
 import javax.swing.JFrame;
 
 public class Sudoku implements SudokuSolverInterface{
-    private int[][] grid;
+    private int[][] board;
 
     /* Constructor */
     public Sudoku(){
-        grid = new int[9][9];
+        board = new int[9][9];
         
         for(int r = 0; r < 9; r++){         // startar med alla noll
             for(int c = 0; c < 9; c++){
-                grid[r][c] = 0;
+                board[r][c] = 0;
             }
         }
     }
@@ -20,7 +20,7 @@ public class Sudoku implements SudokuSolverInterface{
      */
     @Override
     public void setBoard(int[][] board) {
-        grid = board;
+        this.board = board;
     }
 
     /**
@@ -28,8 +28,7 @@ public class Sudoku implements SudokuSolverInterface{
      */
     @Override
     public int[][] getBoard() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getBoard'");
+        return board;
     }
 
     /**
@@ -53,12 +52,12 @@ public class Sudoku implements SudokuSolverInterface{
     public boolean legal(int row, int col, int nbr) {
 
         for(int c = 0; c < 9; c++){ // checka tal för row
-            if(grid[row][c] == nbr){
+            if(board[row][c] == nbr){
                 return false;
             } 
         }
         for(int r = 0; r < 9; r++){ // checka tal för col
-            if(grid[r][col] == nbr){
+            if(board[r][col] == nbr){
                 return false;
             }
         }
@@ -67,7 +66,7 @@ public class Sudoku implements SudokuSolverInterface{
         int c = col - col % 3;
         for(int i = r; i < r + 3; i++){
             for(int j = c; j < c + 3; j++){
-                if(grid[i][j] == nbr){
+                if(board[i][j] == nbr){
                     return false;
                 }
             }
