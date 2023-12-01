@@ -35,11 +35,11 @@ public class Sudoku implements SudokuSolverInterface{
      */
     @Override
     public boolean solve() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'solve'");
+
+        return solveRecursive(1, 1);
     }
 
-    private boolean solve(int[][] board){
+    private boolean solveRecursive(int r, int c){
         return false;
     }
 
