@@ -1,5 +1,10 @@
+import java.util.ArrayList;
+
+import javax.swing.JFrame;
+
 public class Sudoku implements SudokuSolverInterface{
     private int[][] matrix;
+    private ArrayList list; 
 
     /* Constructor */
     public Sudoku(){
@@ -19,8 +24,11 @@ public class Sudoku implements SudokuSolverInterface{
 
     @Override
     public void setBoard(int[][] board) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setBoard'");
+        for(int r = 0; r < 9; r++){
+            for(int c = 0; c < 9; c++){
+                board[r][c] = 0;
+            }
+        }
     }
 
     @Override
