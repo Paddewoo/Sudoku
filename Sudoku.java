@@ -28,7 +28,7 @@ public class Sudoku implements SudokuSolverInterface{
      */
     @Override
     public int[][] getBoard() {
-        return board;
+        return this.board;
     }
 
     /**
