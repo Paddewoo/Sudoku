@@ -67,7 +67,9 @@ public class Sudoku implements SudokuSolverInterface{
         int c = col - col % 3;
         for(int i = r; i < r + 3; i++){
             for(int j = c; j < c + 3; j++){
-
+                if(grid[i][j] == nbr){
+                    return false;
+                }
             }
         }
 
