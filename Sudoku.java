@@ -1,48 +1,56 @@
-import java.util.ArrayList;
+
 
 import javax.swing.JFrame;
 
 public class Sudoku implements SudokuSolverInterface{
-    private int[][] matrix;
-    private ArrayList list; 
+    private int[][] grid;
 
     /* Constructor */
     public Sudoku(){
-        matrix = new int[9][9];
-    }
-
-    /* Sets the value of the board */
-    public void setValue(){
+        grid = new int[9][9];
 
     }
 
-    /* Get the value of the board */
-    public int getValue(){
-
-        return 0;
-    }
-
+    /**
+     * Set sudoku board, numbers 1-9 are fixed values, 0 is unsolved. 
+     */
     @Override
     public void setBoard(int[][] board) {
+        grid = board;
         for(int r = 0; r < 9; r++){
             for(int c = 0; c < 9; c++){
-                board[r][c] = 0;
+                grid[r][c] = 0;
             }
         }
+
     }
 
+    /**
+     * Get the sudoku board
+     */
     @Override
     public int[][] getBoard() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getBoard'");
     }
 
+    /**
+     * Solve soduko
+     * @return true if solution could be found
+     */
     @Override
     public boolean solve() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'solve'");
     }
 
+    /**
+     * Check if digit is legal on the current board
+     * @param row
+     * @param col
+     * @param nbr
+     * @return true if legal
+     */
     @Override
     public boolean legal(int row, int col, int nbr) {
         // TODO Auto-generated method stub
