@@ -1,6 +1,4 @@
 
-import javax.swing.JFrame;
-
 public class Sudoku implements SudokuSolverInterface{
     private int[][] board;
 
@@ -39,6 +37,10 @@ public class Sudoku implements SudokuSolverInterface{
     public boolean solve() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'solve'");
+    }
+
+    private boolean solve(int[][] board){
+        return false;
     }
 
     /**
