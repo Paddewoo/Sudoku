@@ -57,13 +57,13 @@ public class Sudoku implements SudokuSolverInterface{
                 return false;
             } 
         }
-        for(int r = 0; r < 9; r++){
+        for(int r = 0; r < 9; r++){ // checka tal för col
             if(grid[r][col] == nbr){
                 return false;
             }
         }
 
-        int r = row - row % 3;
+        int r = row - row % 3; // för att hitta area av 3x3
         int c = col - col % 3;
         for(int i = r; i < r + 3; i++){
             for(int j = c; j < c + 3; j++){
