@@ -51,8 +51,27 @@ public class Sudoku implements SudokuSolverInterface{
      */
     @Override
     public boolean legal(int row, int col, int nbr) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'legal'");
+
+        for(int c = 0; c < 9; c++){ // checka tal för row
+            if(grid[row][c] == nbr){
+                return false;
+            } 
+        }
+        for(int r = 0; r < 9; r++){
+            if(grid[r][col] == nbr){
+                return false;
+            }
+        }
+
+        int r = row - row % 3;
+        int c = col - col % 3;
+        for(int i = r; i < r + 3; i++){
+            for(int j = c; j < c + 3; j++){
+
+            }
+        }
+
+        return true;
     }
 
 }
