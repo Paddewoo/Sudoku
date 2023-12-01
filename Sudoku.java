@@ -1,16 +1,12 @@
 
 public class Sudoku implements SudokuSolverInterface{
     private int[][] board;
+    private boolean[][] booleanBoard;
 
     /* Constructor */
     public Sudoku(){
         board = new int[9][9];
-        
-        for(int r = 0; r < 9; r++){         // startar med alla noll
-            for(int c = 0; c < 9; c++){
-                board[r][c] = 0;
-            }
-        }
+        booleanBoard = new boolean[9][9];
     }
 
     /**
@@ -19,6 +15,14 @@ public class Sudoku implements SudokuSolverInterface{
     @Override
     public void setBoard(int[][] board) {
         this.board = board;
+
+        for(int i = 0; i < 9; i++){
+            for(int j = 0; j < 9; j++){
+                if(board[i][j] != 0){
+                    booleanBoard[i][j] = true;
+                }
+            }
+        }
     }
 
     /**
