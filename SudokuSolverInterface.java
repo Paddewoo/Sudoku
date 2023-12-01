@@ -1,4 +1,4 @@
-public interface SudokuSolver{
+public interface SudokuSolverInterface{
     
     // Work in progress
 
