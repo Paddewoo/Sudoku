@@ -72,7 +72,6 @@ public class Sudoku implements SudokuSolverInterface{
                 }
             }
         }
-
         return true;
     }
 
