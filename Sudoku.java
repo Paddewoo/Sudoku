@@ -80,4 +80,22 @@ public class Sudoku implements SudokuSolverInterface{
         return true;
     }
 
+    @Override
+    public int get(int row, int col) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'get'");
+    }
+
+    @Override
+    public void set(int row, int col, int nbr) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'set'");
+    }
+
+    @Override
+    public void clear() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'clear'");
+    }
+
 }

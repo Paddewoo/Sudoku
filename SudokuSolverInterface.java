@@ -26,4 +26,26 @@ public interface SudokuSolverInterface{
      * @return true if legal
      */
     boolean legal(int row, int col, int nbr);
+
+    /**
+     * Get number on board
+     * @param row
+     * @param col
+     * @return number on board
+     */
+    int get(int row, int col);
+
+    /**
+     * Set number on board, numbers 1-9 are fixed values, 0 is unsolved. 
+     * @param row
+     * @param col
+     * @param nbr
+     */
+    void set(int row, int col, int nbr);
+
+    /**
+     * Clear the board
+     */
+    void clear();
+
 }
