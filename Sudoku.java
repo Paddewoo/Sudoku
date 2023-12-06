@@ -1,12 +1,12 @@
 
 public class Sudoku implements SudokuSolverInterface{
     private int[][] board;
-    private boolean[][] booleanBoard;
+    //private boolean[][] booleanBoard;
 
     /* Constructor */
     public Sudoku(){
         board = new int[9][9];
-        booleanBoard = new boolean[9][9];
+        //booleanBoard = new boolean[9][9];
     }
 
     /**
@@ -16,13 +16,13 @@ public class Sudoku implements SudokuSolverInterface{
     public void setBoard(int[][] board) {
         this.board = board;
 
-        for(int i = 0; i < 9; i++){
-            for(int j = 0; j < 9; j++){
-                if(board[i][j] != 0){
-                    booleanBoard[i][j] = true;
-                }
-            }
-        }
+        // for(int i = 0; i < 9; i++){
+        //     for(int j = 0; j < 9; j++){
+        //         if(board[i][j] != 0){
+        //             booleanBoard[i][j] = true;
+        //         }
+        //     }
+        // }
     }
 
     /**
@@ -39,11 +39,17 @@ public class Sudoku implements SudokuSolverInterface{
      */
     @Override
     public boolean solve() {
+        int[][] temp = new int[9][9];
 
-        return solveRecursive(0, 0);
+        if(solveRecursive(0, 0, temp)){
+            board = temp;
+            return true;
+        }
+        return false;
+
     }
 
-    private boolean solveRecursive(int row, int col){
+    private boolean solveRecursive(int row, int col, int[][] temp){
         // betyder alla i raden har fyllts i
         if(row == 9){ 
             return true;
@@ -51,24 +57,24 @@ public class Sudoku implements SudokuSolverInterface{
 
         // om alla i col 9 ifyllda, gå till nästa rad
         if(col == 9){
-            return solveRecursive(row + 1, 0);
+            return solveRecursive(row + 1, 0, temp);
         }
 
         // ignorera celler som redan är ifyllda
-        if(booleanBoard[row][col] == true){
-            return solveRecursive(row, col + 1);
+        if(board[row][col] != 0){
+            return solveRecursive(row, col + 1, temp);
         }
 
         // försök lägga in ett tal 1 - 9
         for(int n = 1; n <= 9; n++){
             if(legal(row, col, n)){
-                board[row][col] = n;      // lägg in digit
+                temp[row][col] = n;      // lägg in digit
 
-                if(solveRecursive(row, col + 1)){
+                if(solveRecursive(row, col + 1, temp)){
                     return true;
                 }
 
-                board[row][col] = 0;
+                temp[row][col] = 0;
             }
         }
 
@@ -128,7 +134,7 @@ public class Sudoku implements SudokuSolverInterface{
     @Override
     public void set(int row, int col, int nbr) {
         board[row][col] = nbr;
-        booleanBoard[row][col] = (nbr != 0);
+        //booleanBoard[row][col] = (nbr != 0);
     }
 
     /**
@@ -139,7 +145,7 @@ public class Sudoku implements SudokuSolverInterface{
         for(int r = 0; r < 9; r++){
             for(int c = 0; c < 9; c++){
                 board[r][c] = 0;
-                booleanBoard[r][c] = false;
+                //booleanBoard[r][c] = false;
             }
         }
     }
