@@ -116,7 +116,7 @@ public class Sudoku implements SudokuSolverInterface{
      */
     @Override
     public int get(int row, int col) {
-        return 0;
+        return board[row][col];
     }
 
     /**
@@ -127,7 +127,8 @@ public class Sudoku implements SudokuSolverInterface{
      */
     @Override
     public void set(int row, int col, int nbr) {
-        
+        board[row][col] = nbr;
+        booleanBoard[row][col] = (nbr != 0);
     }
 
     /**
