@@ -40,10 +40,35 @@ public class Sudoku implements SudokuSolverInterface{
     @Override
     public boolean solve() {
 
-        return solveRecursive(1, 1);
+        return solveRecursive(0, 0);
     }
 
-    private boolean solveRecursive(int r, int c){
+    private boolean solveRecursive(int row, int col){
+        // betyder alla i raden har fyllts i
+        if(row == 9){ 
+            return true;
+        }
+
+        // om alla i col 9 ifyllda, gå till nästa rad
+        if(col == 9){
+            return solveRecursive(row + 1, 0);
+        }
+
+        // ignorera celler som redan är ifyllda
+        if(booleanBoard[row][col] == true){
+            return solveRecursive(row, col + 1);
+        }
+
+        // försök lägga in ett tal 1 - 9
+        for(int n = 1; n <= 9; n++){
+            if(legal(row, col, n)){
+                board[row][col] = n;
+            }
+        }
+
+        //
+
+        
         return false;
     }
 
