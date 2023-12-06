@@ -62,13 +62,16 @@ public class Sudoku implements SudokuSolverInterface{
         // försök lägga in ett tal 1 - 9
         for(int n = 1; n <= 9; n++){
             if(legal(row, col, n)){
-                board[row][col] = n;
+                board[row][col] = n;      // lägg in digit
+
+                if(solveRecursive(row, col + 1)){
+                    return true;
+                }
+
+                board[row][col] = 0;
             }
         }
 
-        //
-
-        
         return false;
     }
 
