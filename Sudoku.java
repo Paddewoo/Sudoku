@@ -80,22 +80,39 @@ public class Sudoku implements SudokuSolverInterface{
         return true;
     }
 
+    /**
+     * Get number on board
+     * @param row
+     * @param col
+     * @return number on board
+     */
     @Override
     public int get(int row, int col) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'get'");
+        return 0;
     }
 
+    /**
+     * Set number on board, numbers 1-9 are fixed values, 0 is unsolved. 
+     * @param row
+     * @param col
+     * @param nbr
+     */
     @Override
     public void set(int row, int col, int nbr) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'set'");
+        
     }
 
+    /**
+     * Clear the board
+     */
     @Override
     public void clear() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'clear'");
+        for(int r = 0; r < 9; r++){
+            for(int c = 0; c < 9; c++){
+                board[r][c] = 0;
+                booleanBoard[r][c] = false;
+            }
+        }
     }
 
 }
