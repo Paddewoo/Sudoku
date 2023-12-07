@@ -1,15 +1,9 @@
-
-public class Sudoku implements SudokuSolverInterface{
+public class Sudoku implements SudokuSolver{
     private int[][] board;
-        private int[][] temp;
-    //private boolean[][] booleanBoard;
 
     /* Constructor */
     public Sudoku(){
         board = new int[9][9];
-                temp = new int[9][9];
-
-        //booleanBoard = new boolean[9][9];
     }
 
     /**
@@ -18,14 +12,6 @@ public class Sudoku implements SudokuSolverInterface{
     @Override
     public void setBoard(int[][] board) {
         this.board = board;
-
-        // for(int i = 0; i < 9; i++){
-        //     for(int j = 0; j < 9; j++){
-        //         if(board[i][j] != 0){
-        //             booleanBoard[i][j] = true;
-        //         }
-        //     }
-        // }
     }
 
     /**
@@ -42,47 +28,55 @@ public class Sudoku implements SudokuSolverInterface{
      */
     @Override
     public boolean solve() {
-        if(solveRecursive(0, 0)){
-            board = temp.clone();
-            return true;
+        if (hasDuplicates()) {
+            return false;
         }
-        
-        return false;
+        return solveRecursive();
 
     }
 
-    private boolean solveRecursive(int row, int col){
+    private boolean solveRecursive(){
+        // Find the first empty cell on the board
+        int[] emptyCell = findEmptyCell();
 
-        // betyder alla i raden har fyllts i
-        if(row == 9){ 
+        // If there are no empty cells, the puzzle is solved
+        if (emptyCell == null) {
             return true;
         }
 
-        //om alla i col 9 ifyllda, gå till nästa rad
-        if(col == 9){
-            return solveRecursive(row + 1, 0);
-        }
+        int row = emptyCell[0];
+        int col = emptyCell[1];
 
-        // ignorera celler som redan är ifyllda
-        if(board[row][col] != 0){
-            temp[row][col] = board[row][col];
-            return solveRecursive(row, col + 1);
-        }
+        // Try filling the empty cell with numbers 1 to 9
+        for (int num = 1; num <= 9; num++) {
+            if (isLegal(row, col, num)) {
+                // Try placing the number in the cell
+                board[row][col] = num;
 
-        // försök lägga in ett tal 1 - 9
-        for(int n = 1; n <= 9; n++){
-            if(legal(row, col, n)){
-                temp[row][col] = n;      // lägg in digit
-
-                if(solveRecursive(row, col + 1)){
-                    return true;
+                // Recursively attempt to solve the remaining puzzle
+                if (solveRecursive()) {
+                    return true; // Puzzle is solved
                 }
 
-                temp[row][col] = 0;
+                // If the current placement does not lead to a solution, backtrack
+                board[row][col] = 0;
             }
         }
-        
+
+        // No valid number can be placed in the current cell
         return false;
+    }
+
+    private int[] findEmptyCell() {
+        // Find the first empty cell on the board
+        for (int row = 0; row < 9; row++) {
+            for (int col = 0; col < 9; col++) {
+                if (board[row][col] == 0) {
+                    return new int[]{row, col};
+                }
+            }
+        }
+        return null; // No empty cell found
     }
 
     /**
@@ -93,30 +87,107 @@ public class Sudoku implements SudokuSolverInterface{
      * @return true if legal
      */
     @Override
-    public boolean legal(int row, int col, int nbr) {
+    public boolean isLegal(int row, int col, int num) {
+        // Check if 'num' can be placed in the given cell
+        return !usedInRow(row, num) && !usedInCol(col, num) && !usedInBox(row - row % 3, col - col % 3, num);
+    }
 
-        for(int c = 0; c < 9; c++){ // checka tal för row
-            if(temp[row][c] == nbr){
-                return false;
-            } 
-        }
-        for(int r = 0; r < 9; r++){ // checka tal för col
-            if(temp[r][col] == nbr){
-                return false;
+    private boolean usedInRow(int row, int num) {
+        // Check if 'num' is already used in the row
+        for (int col = 0; col < 9; col++) {
+            if (board[row][col] == num) {
+                return true;
             }
         }
+        return false;
+    }
 
-        int r = row - row % 3; // för att hitta area av 3x3
-        int c = col - col % 3;
-        for(int i = r; i < r + 3; i++){
-            for(int j = c; j < c + 3; j++){
-                if(temp[i][j] == nbr){
-                    return false;
+    private boolean usedInCol(int col, int num) {
+        // Check if 'num' is already used in the column
+        for (int row = 0; row < 9; row++) {
+            if (board[row][col] == num) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean usedInBox(int startRow, int startCol, int num) {
+        // Check if 'num' is already used in the 3x3 box
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 3; col++) {
+                if (board[startRow + row][startCol + col] == num) {
+                    return true;
                 }
             }
         }
-        return true;
+        return false;
     }
+    
+
+    /**
+     * Check for duplicates in rows, columns, and grids
+     *
+     * @return true if duplicates found
+     */
+    private boolean hasDuplicates() {
+        return hasDuplicatesInRows() || hasDuplicatesInColumns() || hasDuplicatesInGrids();
+    }
+
+    private boolean hasDuplicatesInRows() {
+        for (int row = 0; row < 9; row++) {
+            if (hasDuplicatesInArray(board[row])) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean hasDuplicatesInColumns() {
+        for (int col = 0; col < 9; col++) {
+            int[] column = new int[9];
+            for (int row = 0; row < 9; row++) {
+                column[row] = board[row][col];
+            }
+            if (hasDuplicatesInArray(column)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean hasDuplicatesInGrids() {
+        for (int startRow = 0; startRow < 9; startRow += 3) {
+            for (int startCol = 0; startCol < 9; startCol += 3) {
+                int[] grid = new int[9];
+                int index = 0;
+                for (int row = 0; row < 3; row++) {
+                    for (int col = 0; col < 3; col++) {
+                        grid[index++] = board[startRow + row][startCol + col];
+                    }
+                }
+                if (hasDuplicatesInArray(grid)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean hasDuplicatesInArray(int[] array) {
+        boolean[] seen = new boolean[10]; // Assuming numbers are 1-9
+        for (int num : array) {
+            if (num != 0) {
+                if (seen[num]) {
+                    return true; // Duplicate found
+                } else {
+                    seen[num] = true;
+                }
+            }
+        }
+        return false;
+    }
+  
 
     /**
      * Get number on board
@@ -138,7 +209,7 @@ public class Sudoku implements SudokuSolverInterface{
     @Override
     public void set(int row, int col, int nbr) {
         board[row][col] = nbr;
-        //booleanBoard[row][col] = (nbr != 0);
+
     }
 
     /**
@@ -149,7 +220,7 @@ public class Sudoku implements SudokuSolverInterface{
         for(int r = 0; r < 9; r++){
             for(int c = 0; c < 9; c++){
                 board[r][c] = 0;
-                //booleanBoard[r][c] = false;
+
             }
         }
     }

@@ -1,14 +1,13 @@
-public interface SudokuSolverInterface{
-    
-    // Work in progress
-
+public interface SudokuSolver{
     /**
      * Set sudoku board, numbers 1-9 are fixed values, 0 is unsolved. 
+     * @param board a board to copy values from
+     * @throws IllegalArgumentException if board is invalid, e.g. not 9x9
      */
     void setBoard(int[][] board);
     
     /**
-     * Get the sudoku board
+     * Get a copy of the sudoku board
      */
     int[][] getBoard();
 
@@ -25,7 +24,7 @@ public interface SudokuSolverInterface{
      * @param nbr
      * @return true if legal
      */
-    boolean legal(int row, int col, int nbr);
+    boolean isLegal(int row, int col, int nbr);
 
     /**
      * Get number on board
@@ -47,5 +46,4 @@ public interface SudokuSolverInterface{
      * Clear the board
      */
     void clear();
-
 }

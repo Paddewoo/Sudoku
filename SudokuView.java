@@ -1,11 +1,11 @@
 import java.awt.*;
 import javax.swing.*;
 
-public class SudokuView {
+public class sudokuView {
     private Sudoku sudoku;
     private JTextField[][] FieldMatrix;
 
-    public SudokuView(Sudoku sudoku, String title, int width, int height) {
+    public sudokuView(Sudoku sudoku, String title, int width, int height) {
         this.sudoku = sudoku;
         FieldMatrix = new JTextField[9][9];
         SwingUtilities.invokeLater(() -> createBoard(title, width, height));
