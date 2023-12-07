@@ -26,7 +26,9 @@ public class Sudoku implements SudokuSolver{
      */
     @Override
     public int[][] getBoard() {
-        return this.board;
+        int[][] temp = new int[9][9];
+        temp = this.board.clone();
+        return temp;
     }
 
     /**
