@@ -83,15 +83,15 @@ public class sudokuView {
         JButton Solve = new JButton("Solve");
         Solve.addActionListener(e -> {
             sudoku.setBoard(readBoard());
-            if (sudoku.solve()){
+            if (sudoku.solve()) {
                 int[][] temp = sudoku.getBoard();
-                for (int x = 0; x< 9 ; x++){
-                    for ( int y = 0; y<9; y++){
+                for (int x = 0; x < 9; x++) {
+                    for (int y = 0; y < 9; y++) {
                         FieldMatrix[x][y].setText(Integer.toString(temp[x][y]));
-                    } 
+                    }
                 }
-            }else{
-            	JOptionPane.showMessageDialog(frame, "The board cannot be solved");
+            } else {
+                JOptionPane.showMessageDialog(frame, "The board cannot be solved");
             }
 
         });
