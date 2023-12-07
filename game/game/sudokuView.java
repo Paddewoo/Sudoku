@@ -6,6 +6,7 @@ import javax.swing.*;
 public class sudokuView {
     private Sudoku sudoku;
     private JTextField[][] FieldMatrix;
+    JFrame frame;
 
     public sudokuView(Sudoku sudoku, String title, int width, int height) {
         this.sudoku = sudoku;
@@ -16,7 +17,7 @@ public class sudokuView {
     public void createBoard(String title, int width, int height) {
 
         // Create JFrame
-        JFrame frame = new JFrame(title);
+        frame = new JFrame(title);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Creates panels with boxes and buttons
@@ -90,7 +91,7 @@ public class sudokuView {
                     } 
                 }
             }else{
-                System.exit(0);
+            	JOptionPane.showMessageDialog(frame, "The board cannot be solved");
             }
 
         });
