@@ -14,6 +14,12 @@ public class sudokuView {
         SwingUtilities.invokeLater(() -> createBoard(title, width, height));
     }
 
+    
+    /** 
+     * @param title
+     * @param width
+     * @param height
+     */
     public void createBoard(String title, int width, int height) {
 
         // Create JFrame
