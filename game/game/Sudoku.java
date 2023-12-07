@@ -3,14 +3,17 @@ package game;
 public class Sudoku implements SudokuSolver{
     private int[][] board;
 
-    /* Constructor */
+    /**
+     * Constructs a new Sudoku game with an empty board.
+     */
     public Sudoku(){
         board = new int[9][9];
     }
 
     /**
-     * Set sudoku board, numbers 1-9 are fixed values, 0 is unsolved.
-     * @return 
+     * Set sudoku board, numbers 1-9 are fixed values, 0 is unsolved. 
+     * @param board a board to copy values from
+     * @throws IllegalArgumentException if board is invalid, e.g. not 9x9
      */
     @Override
     public void setBoard(int[][] board) {
@@ -18,7 +21,8 @@ public class Sudoku implements SudokuSolver{
     }
 
     /**
-     * Get the sudoku board
+     * Get the sudoku board.
+     * @return board
      */
     @Override
     public int[][] getBoard() {
