@@ -1,3 +1,5 @@
+package game;
+
 public interface SudokuSolver{
     /**
      * Set sudoku board, numbers 1-9 are fixed values, 0 is unsolved. 

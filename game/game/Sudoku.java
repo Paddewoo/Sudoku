@@ -1,3 +1,5 @@
+package game;
+
 public class Sudoku implements SudokuSolver{
     private int[][] board;
 
