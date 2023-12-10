@@ -12,6 +12,7 @@ public class Sudoku implements SudokuSolver{
 
     /**
      * Set sudoku board, numbers 1-9 are fixed values, 0 is unsolved. 
+     * 
      * @param board a board to copy values from
      * @throws IllegalArgumentException if board is invalid, e.g. not 9x9
      */
@@ -21,8 +22,9 @@ public class Sudoku implements SudokuSolver{
     }
 
     /**
-     * Get the sudoku board.
-     * @return board
+     * Gets the current state of the Sudoku board.
+     * 
+     * @return a copy of the 9x9 array representing the Sudoku board
      */
     @Override
     public int[][] getBoard() {
@@ -32,8 +34,9 @@ public class Sudoku implements SudokuSolver{
     }
 
     /**
-     * Solve soduko
-     * @return true if solution could be found
+     * Attempts to solve the Sudoku puzzle.
+     * 
+     * @return true if a solution is found, false otherwise
      */
     @Override
     public boolean solve() {
@@ -89,11 +92,12 @@ public class Sudoku implements SudokuSolver{
     }
 
     /**
-     * Check if digit is legal on the current board
-     * @param row
-     * @param col
-     * @param nbr
-     * @return true if legal
+     * Checks if placing a digit is valid at the specified position on the current Sudoku board.
+     * 
+     * @param row the row index where the digit is to be placed
+     * @param col the column index where the digit is to be placed
+     * @param num the digit to be checked for validity (1-9)
+     * @return true if placing the digit at the given position is legal, false otherwise
      */
     @Override
     public boolean isLegal(int row, int col, int num) {
@@ -133,11 +137,10 @@ public class Sudoku implements SudokuSolver{
         return false;
     }
     
-
     /**
-     * Check for duplicates in rows, columns, and grids
+     * Checks for duplicate values in rows, columns, and 3x3 grids of the Sudoku board.
      *
-     * @return true if duplicates found
+     * @return true if duplicates are found, indicating an invalid board state
      */
     private boolean hasDuplicates() {
         return hasDuplicatesInRows() || hasDuplicatesInColumns() || hasDuplicatesInGrids();
@@ -197,12 +200,12 @@ public class Sudoku implements SudokuSolver{
         return false;
     }
   
-
     /**
-     * Get number on board
-     * @param row
-     * @param col
-     * @return number on board
+     * Gets the number at the specified row and column on the Sudoku board.
+     * 
+     * @param row the row index
+     * @param col the column index
+     * @return the number at the specified position on the board
      */
     @Override
     public int get(int row, int col) {
@@ -210,10 +213,11 @@ public class Sudoku implements SudokuSolver{
     }
 
     /**
-     * Set number on board, numbers 1-9 are fixed values, 0 is unsolved. 
-     * @param row
-     * @param col
-     * @param nbr
+     * Sets a number on the Sudoku board with numbers 1-9 as fixed values, and 0 representing unsolved cells.
+     * 
+     * @param row the row index
+     * @param col the column index
+     * @param nbr the number to set at the specified position on the board
      */
     @Override
     public void set(int row, int col, int nbr) {
@@ -222,7 +226,7 @@ public class Sudoku implements SudokuSolver{
     }
 
     /**
-     * Clear the board
+     * Clears the Sudoku board by setting all cells to 0.
      */
     @Override
     public void clear() {
