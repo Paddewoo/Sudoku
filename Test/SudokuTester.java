@@ -22,51 +22,52 @@ public class SudokuTester {
     @AfterEach
     void tearDown(){
         sudoku.clear();
+        board = null;
     }
 
     @Test
-    void TestConstructor(){
-        for(int r = 0; r < 9; r++){
-            for(int c  = 0; c < 9; c++){
+    void testConstructor(){
+        for(int r = 0; r < board.length; r++){
+            for(int c  = 0; c < board[0].length; c++){
                 assertEquals(0, sudoku.get(r, c));
             }
         }
     }
 
     @Test
-    void TestsetBoard(){
+    void testSetBoard(){
         board[3][1] = 5;
         board[7][5] = 7;
         board[6][8] = 1;
         board[4][6] = 2;
+
         sudoku.setBoard(board);
 
-        for(int r = 0; r < 9; r++){
-            for(int c  = 0; c < 9; c++){
+        for(int r = 0; r < board.length; r++){
+            for(int c  = 0; c < board[0].length; c++){
                 assertEquals(board[r][c], sudoku.get(r, c));
             }
         }
     }
 
     @Test
-    void TestgetBoard(){
+    void testGetBoard(){
         board[3][1] = 5;
         board[7][5] = 7;
         board[0][1] = 3;
         board[7][8] = 1;
 
         sudoku.setBoard(board);
-        int[][] board2 = sudoku.getBoard();
 
-        for(int r = 0; r < 9; r++){
-            for(int c  = 0; c < 9; c++){
-                assertEquals(board[r][c], board2[r][c]);
+        for(int r = 0; r < board.length; r++){
+            for(int c  = 0; c < board[0].length; c++){
+                assertEquals(board[r][c], sudoku.get(r, c));
             }
         }
     }
 
     @Test
-    void Testsolve(){
+    void testSolve(){
         sudoku.set(0, 0, 1); // solvable
         assertTrue(sudoku.solve());
 
@@ -75,30 +76,32 @@ public class SudokuTester {
     }
 
     @Test
-    void TestisLegal(){
+    void testIsLegal(){
         assertTrue(sudoku.isLegal(0, 0, 1));
         sudoku.set(0, 0, 1);
         
         assertFalse(sudoku.isLegal(0, 1, 1)); // same rad
         assertFalse(sudoku.isLegal(2, 0, 1)); // same col
         assertFalse(sudoku.isLegal(2, 2, 1)); // same box
+
+        assertTrue(sudoku.solve());
     }
 
     @Test
-    void Testget(){
+    void testGet(){
         board[0][0] = 5;
         board[2][6] = 6;
         sudoku.setBoard(board);
 
-        for(int r = 0; r < 9; r++){
-            for(int c = 0; c < 9; c++){
-                assertTrue(board[r][c] == sudoku.get(r, c));
+        for(int r = 0; r < board.length; r++){
+            for(int c = 0; c < board[0].length; c++){
+                assertEquals(board[r][c], sudoku.get(r, c));
             }
         }
     }
 
     @Test
-    void Testset(){
+    void testSet(){
         board[0][0] = 9;
         board[3][4] = 4;
         board[5][0] = 9;
@@ -111,15 +114,15 @@ public class SudokuTester {
         sudoku2.set(3, 4, 4);
         sudoku2.set(5, 0, 9);
 
-        for(int r = 0; r < 9; r++){
-            for(int c = 0; c < 9; c++){
-                assertTrue(sudoku2.get(r, c) == sudoku.get(r, c));
+        for(int r = 0; r < board.length; r++){
+            for(int c = 0; c < board[0].length; c++){
+                assertEquals(sudoku2.get(r, c), sudoku.get(r, c));
             }
         }
     }
 
     @Test
-    void Testclear(){
+    void testClear(){
         sudoku.set(0, 0, 9);
         sudoku.set(3, 4, 4);
         sudoku.set(5, 0, 9);
@@ -130,9 +133,9 @@ public class SudokuTester {
 
         sudoku.clear();
 
-        for(int r = 0; r < 9; r++){
-            for(int c = 0; c < 9; c++){
-                assertTrue(sudoku.get(r, c) == 0);
+        for(int r = 0; r < board.length; r++){
+            for(int c = 0; c < board[0].length; c++){
+                assertEquals(sudoku.get(r, c), 0);
             }
         }
 
