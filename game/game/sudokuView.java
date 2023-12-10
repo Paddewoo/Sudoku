@@ -16,9 +16,11 @@ public class sudokuView {
 
     
     /** 
-     * @param title
-     * @param width
-     * @param height
+     * Creates a grafical user interface board with the specified title, width and height.
+     * 
+     * @param title of the JFrame
+     * @param width of the JFrame and the graphical board
+     * @param height of the JFrame and the graphical board
      */
     public void createBoard(String title, int width, int height) {
 
@@ -38,6 +40,7 @@ public class sudokuView {
         frame.setVisible(true);
     }
 
+    // skapar the 3x3 gridLayout
     private JPanel createGridLayout() {
         JPanel layout = new JPanel(new GridLayout(3, 3, 1, 1));
         int gridX = 0;
@@ -56,6 +59,7 @@ public class sudokuView {
         return layout;
     }
 
+    // skapar själva grid
     private JPanel createGrid(boolean setColour, int gridX, int gridY) {
         JPanel panel = new JPanel(new GridLayout(3, 3));
         int gx = gridX * 3;
@@ -85,7 +89,7 @@ public class sudokuView {
     private JPanel createButtons() {
         JPanel panel = new JPanel();
 
-        // Button Solve, add stuff
+        // Button Solve, om går att lösa elr ej
         JButton Solve = new JButton("Solve");
         Solve.addActionListener(e -> {
             sudoku.setBoard(readBoard());
