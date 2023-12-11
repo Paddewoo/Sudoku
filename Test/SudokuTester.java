@@ -68,6 +68,8 @@ public class SudokuTester {
 
     @Test
     void testSolve(){
+        assertTrue(sudoku.solve()); // test empty
+
         sudoku.set(0, 0, 1); // solvable
         assertTrue(sudoku.solve());
 
