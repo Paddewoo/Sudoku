@@ -78,6 +78,25 @@ public class SudokuTester {
     }
 
     @Test
+    void testFig1(){
+        int board[][] = {
+            {0, 0, 8, 0, 0, 9, 0, 6, 2},
+            {0, 0, 0, 0, 0, 0, 0, 0, 5},
+            {1, 0, 2, 5, 0, 0, 0, 0, 0},
+            {0, 0, 0, 2, 1, 0, 0, 9, 0},
+            {0, 5, 0, 0, 0, 0, 6, 0, 0},
+            {6, 0, 0, 0, 0, 0, 0, 2, 8},
+            {4, 1, 0, 6, 0, 8, 0, 0, 0},
+            {8, 6, 0, 0, 3, 0, 1, 0, 0},
+            {0, 0, 0, 0, 0, 0, 4, 0, 0}
+        };
+
+        sudoku.setBoard(board);
+        
+        assertTrue(sudoku.solve());
+    }
+
+    @Test
     void testIsLegal(){
         assertTrue(sudoku.isLegal(0, 0, 1));
         sudoku.set(0, 0, 1);
