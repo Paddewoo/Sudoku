@@ -86,25 +86,35 @@ public class sudokuView {
         return panel;
     }
 
-    private JPanel createButtons() {
-        JPanel panel = new JPanel();
+    /**
+     * Creates buttons for solving and clearing the Sudoku board.
+     *
+     * @return The panel containing the buttons.
+     */
+	private JPanel createButtons() {
+		JPanel panel = new JPanel();
 
-        // Button Solve, om går att lösa elr ej
-        JButton Solve = new JButton("Solve");
-        Solve.addActionListener(e -> {
-            sudoku.setBoard(readBoard());
-            if (sudoku.solve()) {
-                int[][] temp = sudoku.getBoard();
-                for (int x = 0; x < 9; x++) {
-                    for (int y = 0; y < 9; y++) {
-                        FieldMatrix[x][y].setText(Integer.toString(temp[x][y]));
-                    }
-                }
-            } else {
-                JOptionPane.showMessageDialog(frame, "The board cannot be solved");
-            }
+		// Button Solve, add stuff
+		JButton Solve = new JButton("Solve");
+		Solve.addActionListener(e -> {
+			if (singleDigitCheck()) {
+				sudoku.setBoard(readBoard());
+				if (sudoku.solve()) {
+					int[][] temp = sudoku.getBoard();
+					for (int r = 0; r < 9; r++) {
+						for (int c = 0; c < 9; c++) {
+							FieldMatrix[r][c].setText(Integer.toString(temp[r][c]));
+						}
+					}
+				} else {
+					JOptionPane.showMessageDialog(frame, "The board cannot be solved");
+				}
+			} else {
+				JOptionPane.showMessageDialog(frame, "Only enter numbers from 1-9");
+			}
 
-        });
+		});
+
 
         // Button Clear, add stuff
         JButton Clear = new JButton("Clear");
@@ -125,6 +135,38 @@ public class sudokuView {
         return panel;
 
     }
+
+    /**
+     * Checks if the Sudoku board contains valid single-digit entries (1-9).
+     *
+     * @return True if all entries are valid single digits, false otherwise.
+     */
+	private boolean singleDigitCheck() {
+		
+		for (int r = 0; r < 9; r++) {
+			for (int c = 0; c < 9; c++) {
+				String text = FieldMatrix[r][c].getText().trim();
+
+	            // Check if the text is not empty
+	            if (!text.isEmpty()) {
+	                // Check if the text is a single digit from 1 to 9
+	                try {
+	                    int n = Integer.parseInt(text);
+	                    if (n < 1 || n > 9) {
+	                        return false;
+	                    }
+	                } catch (NumberFormatException e) {
+	                    // If it's not a valid integer
+	                    return false;
+	                }
+	            }
+			}
+
+		}
+
+		return true;
+	}
+
 
     private int[][] readBoard() {
         int[][] board = new int[9][9];
