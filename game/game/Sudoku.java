@@ -87,19 +87,6 @@ public class Sudoku implements SudokuSolver{
         return false;
     }
 
-
-    private int[] findEmptyCell() {
-        // Find the first empty cell on the board
-        for (int row = 0; row < 9; row++) {
-            for (int col = 0; col < 9; col++) {
-                if (board[row][col] == 0) {
-                    return new int[]{row, col};
-                }
-            }
-        }
-        return null; // No empty cell found
-    }
-
     /**
      * Checks if placing a digit is valid at the specified position on the current Sudoku board.
      * 
@@ -146,11 +133,6 @@ public class Sudoku implements SudokuSolver{
         return false;
     }
     
-    /**
-     * Checks for duplicate values in rows, columns, and 3x3 grids of the Sudoku board.
-     *
-     * @return true if duplicates are found, indicating an invalid board state
-     */
     private boolean hasDuplicates() {
         return hasDuplicatesInRows() || hasDuplicatesInColumns() || hasDuplicatesInGrids();
     }
