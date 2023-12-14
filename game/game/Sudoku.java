@@ -43,30 +43,38 @@ public class Sudoku implements SudokuSolver{
         if (hasDuplicates()) {
             return false;
         }
-        return solveRecursive();
+        return solveRecursive(0, 0);
 
     }
 
-    private boolean solveRecursive(){
-        // Find the first empty cell on the board
-        int[] emptyCell = findEmptyCell();
-
-        // If there are no empty cells, the puzzle is solved
-        if (emptyCell == null) {
+    private boolean solveRecursive(int row, int col) {
+        // If we have reached the end of the board, the puzzle is solved
+        if (row == 9) {
             return true;
         }
 
-        int row = emptyCell[0];
-        int col = emptyCell[1];
+        // Calculate the next row and column values
+        int nextRow = 0;
+        if (col == 8) {
+            nextRow = row + 1;
+        } else {
+            nextRow = row;
+        }
+        int nextCol = (col + 1) % 9;
+
+        // If the current cell is not empty, move to the next cell
+        if (board[row][col] != 0) {
+            return solveRecursive(nextRow, nextCol);
+        }
 
         // Try filling the empty cell with numbers 1 to 9
-        for (int num = 1; num <= 9; num++) {
-            if (isLegal(row, col, num)) {
+        for (int nbr = 1; nbr <= 9; nbr++) {
+            if (isLegal(row, col, nbr)) {
                 // Try placing the number in the cell
-                board[row][col] = num;
+                board[row][col] = nbr;
 
                 // Recursively attempt to solve the remaining puzzle
-                if (solveRecursive()) {
+                if (solveRecursive(nextRow, nextCol)) {
                     return true; // Puzzle is solved
                 }
 
@@ -75,9 +83,10 @@ public class Sudoku implements SudokuSolver{
             }
         }
 
-        // No valid number can be placed in the current cell
+        // No valid number was found for the current cell
         return false;
     }
+
 
     private int[] findEmptyCell() {
         // Find the first empty cell on the board
